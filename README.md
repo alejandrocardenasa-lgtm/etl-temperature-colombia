@@ -272,10 +272,8 @@ python3 etl/main.py
 # Tecnologías Utilizadas
 
 * Python
-* Pandas
-* SQLAlchemy
 * MySQL
-* VS Code
+* PowerBi
 
 ---
 
