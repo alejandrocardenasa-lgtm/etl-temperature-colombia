@@ -146,6 +146,54 @@ Por su parte, la dimensión **dim_sensor** almacena la información relacionada 
 Este diseño permite organizar la información de forma eficiente, facilitando consultas analíticas y reduciendo la duplicación de datos.
 
 ---
+# EDA (Exploratory Data Analysis) 
+
+Antes de transformar y cargar los datos, se realizó una exploración rápida para entender la estructura del dataset y validar calidad:
+
+1) Estructura y tipos de datos
+
+Se revisaron los tipos de datos de las columnas principales. En general, el dataset trae:
+
+codigoestacion y codigosensor como enteros
+
+fechaobservacion como fecha/hora (datetime)
+
+valorobservado como numérico (float)
+
+columnas descriptivas como nombreestacion, departamento, municipio, zonahidrografica como texto
+
+coordenadas latitud y longitud como numéricos
+
+Esto permitió convertir correctamente los campos antes de construir el modelo dimensional.
+
+2) Valores nulos
+
+Después de convertir tipos (fechaobservacion a datetime y variables numéricas a numeric), se validó que no quedaran nulos por errores de conversión.
+Además, se filtraron registros donde fechaobservacion o valorobservado quedaran inválidos (nulos), ya que estos campos son claves para el análisis.
+
+3) Reglas de calidad aplicadas
+
+Durante el análisis se identificaron problemas puntuales de calidad, por lo que se aplicaron reglas simples:
+
+Se eliminaron registros con coordenadas inválidas (0,0) (por ejemplo, longitud igual a 0), ya que no representan una ubicación real de estación.
+
+Se reemplazó el valor <nil> en zonahidrografica por "UNKNOWN" para mantener consistencia en la dimensión.
+
+Se estandarizó la descripción del sensor cuando aparecía con variaciones (por ejemplo: "TEMPERATURA DEL AIRE A 2 m" → "Temp Aire 2 m").
+
+4) Resultado final del modelo (después del ETL)
+
+Luego de ejecutar el pipeline completo (Transform + Load), el Data Warehouse quedó poblado con:
+
+dim_fecha: 33,528 registros
+
+dim_estacion: 502 registros
+
+dim_sensor: 1 registro
+
+fact_observaciones_temperatura: 49,992 registros
+
+---
 
 # Pipeline ETL
 
