@@ -245,6 +245,66 @@ mysql+pymysql://root:root@localhost/dw_temperatura
 Las tablas se cargan utilizando la función **`to_sql()` de Pandas**.
 
 ---
+## Indicadores Clave de Desempeño (KPIs) para Análisis Climático
+
+A partir de los datos almacenados en el Data Warehouse se pueden construir diferentes indicadores que permitan analizar el comportamiento de la temperatura y su relación con el cambio climático.
+
+Estos indicadores transforman las observaciones de temperatura en información útil para el análisis climático y la toma de decisiones.
+
+1. Índice de Calentamiento Anual
+
+Descripción:
+Analiza la temperatura promedio por año utilizando las observaciones almacenadas en la tabla de hechos.
+
+Objetivo:
+Identificar si existe una tendencia de incremento de temperatura a lo largo del tiempo.
+
+Aplicación:
+Este indicador permite observar patrones de calentamiento que pueden ser utilizados como referencia para estudios climáticos o políticas de adaptación.
+
+2. Frecuencia de Días de Calor Crítico
+
+Descripción:
+Cuenta el número de registros donde la temperatura supera los 30°C.
+
+Objetivo:
+Medir la frecuencia de eventos de calor extremo dentro del dataset.
+
+Aplicación:
+Este indicador ayuda a analizar el aumento de temperaturas extremas que pueden afectar la salud humana, los ecosistemas y la estabilidad ambiental.
+
+3. Mapa de Vulnerabilidad Térmica por Municipio
+
+Descripción:
+Visualización geográfica basada en latitud y longitud de las estaciones meteorológicas.
+
+Objetivo:
+Identificar municipios o zonas donde se registran temperaturas más altas de manera recurrente.
+
+Aplicación:
+Permite detectar áreas con mayor exposición al calor y priorizar estrategias de mitigación o adaptación climática.
+
+4. Estrés Térmico por Zona Hidrográfica
+
+Descripción:
+Analiza las temperaturas máximas agrupadas por zonas hidrográficas.
+
+Objetivo:
+Evaluar la presión térmica sobre los ecosistemas y recursos hídricos.
+
+Aplicación:
+Puede utilizarse para estudiar el impacto del calor extremo en cuerpos de agua y ecosistemas asociados.
+
+5. Top 10 Municipios con Temperaturas Más Altas
+
+Descripción:
+Ranking de los municipios que registran los valores máximos de temperatura dentro del dataset.
+
+Objetivo:
+Identificar las ubicaciones con mayores registros de temperatura.
+
+Aplicación:
+Este indicador permite detectar zonas con mayor riesgo climático y facilita la priorización de medidas de monitoreo o prevención.
 
 # Estructura del Proyecto
 
