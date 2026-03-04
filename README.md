@@ -4,11 +4,11 @@
 
 ## Descripción del Proyecto
 
-Este proyecto implementa un **pipeline ETL** para procesar observaciones de temperatura registradas en estaciones meteorológicas de Colombia.
+Este proyecto implementa un **pipeline ETL (Extract, Transform, Load)** para procesar observaciones de temperatura registradas en estaciones meteorológicas de Colombia.
 
 El objetivo es tomar los datos crudos desde un archivo CSV, limpiarlos y transformarlos, y finalmente cargarlos en un **Data Warehouse** utilizando un modelo dimensional tipo **Star Schema**.
 
-El pipeline fue desarrollado usando **Python, Pandas y MySQL**.
+El pipeline fue desarrollado utilizando **Python, Pandas y MySQL**, permitiendo organizar los datos de forma estructurada para facilitar su análisis posterior.
 
 ---
 
@@ -32,9 +32,30 @@ data/raw/temperature_observations_colombia.csv
 
 ---
 
+# Grain del Modelo
+
+El **grain** del modelo define el nivel de detalle que representa cada fila en la tabla de hechos.
+
+En este proyecto, **una fila de la tabla de hechos representa una medición de temperatura registrada en una estación meteorológica en una fecha y hora específica**.
+
+Es decir, cada registro corresponde a:
+
+* una estación meteorológica
+* un sensor
+* una fecha y hora de observación
+* el valor de temperatura medido
+
+Este nivel de detalle permite realizar análisis a diferentes niveles de agregación, por ejemplo:
+
+* temperatura promedio por estación
+* temperatura promedio por mes o año
+* comparaciones entre estaciones o regiones
+
+---
+
 # Modelo del Data Warehouse
 
-El proyecto utiliza un **modelo estrella (Star Schema)** compuesto por una tabla de hechos y tres tablas de dimensiones.
+El proyecto utiliza un **modelo dimensional en esquema estrella (Star Schema)** compuesto por una tabla de hechos y tres tablas de dimensiones.
 
 ## Tabla de Hechos
 
@@ -98,6 +119,31 @@ Columnas:
 * codigo_sensor
 * descripcion_sensor
 * unidad_medida
+
+---
+
+# Justificación del Modelo Dimensional
+
+El modelo dimensional fue diseñado utilizando un **esquema en estrella (Star Schema)**, donde la tabla de hechos **fact_observaciones_temperatura** almacena las mediciones de temperatura como el evento central del análisis.
+
+Esta tabla contiene las **llaves foráneas hacia las dimensiones** y la medida principal **valor_temperatura**, manteniendo el enfoque en el dato cuantitativo que se desea analizar.
+
+Las dimensiones **dim_fecha**, **dim_estacion** y **dim_sensor** almacenan la información descriptiva asociada a cada medición.
+
+La dimensión **dim_fecha** permite realizar análisis temporales por:
+
+* año
+* trimestre
+* mes
+* semana
+* día
+* hora
+
+La dimensión **dim_estacion** concentra los atributos geográficos y descriptivos de cada estación meteorológica, como el departamento, municipio y zona hidrográfica, evitando redundancia en la tabla de hechos.
+
+Por su parte, la dimensión **dim_sensor** almacena la información relacionada con el tipo de sensor utilizado y su unidad de medida.
+
+Este diseño permite organizar la información de forma eficiente, facilitando consultas analíticas y reduciendo la duplicación de datos.
 
 ---
 
@@ -236,4 +282,6 @@ python3 etl/main.py
 # Autor
 
 GonoAlejo
+
+---
 
